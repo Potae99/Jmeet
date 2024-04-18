@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
@@ -7,6 +6,7 @@ const app = express();
 // app.use();
 
 const db = require("./app/models");
+const Role = db.role;
 db.sequelize.sync()
   .then(() => {
     console.log("Synced db.");
@@ -33,14 +33,21 @@ app.get("/", (req, res) => {
 });
 
 // set port, listen for requests
-require("./app/routes/User.routes")(app);
 require("./app/routes/Timemeet.routes")(app);
 require("./app/routes/FindMeetByUser.routes")(app);
-
+require('./app/routes/auth.routes')(app);
+require('./app/routes/User.routes')(app);
 // set port, listen for requests
 const PORT = 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
+});
+///---------------------------------------------
+// db.sequelize.sync();
+// force: true will drop the table if it already exists
+db.sequelize.sync({force: true}).then(() => {
+  console.log('Drop and Resync Database with { force: true }');
+  initial();
 });
 
 ////--------------------------------------------
@@ -50,9 +57,11 @@ function initial() {
     id: 1,
     name: "user"
   });
-  
+
   Role.create({
-    id: 3,
+    id: 2,
     name: "admin"
   });
 }
+
+//-----------------------------------
