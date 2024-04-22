@@ -3,15 +3,9 @@ const Timemeet = db.UserTimemeet;
 const Op = db.Sequelize.Op;
 
 exports.createTimemeet = (req, res) => {
-    if (!req.body.UserID) {
-        res.status(400).send({
-            message: "Content can not be empty!!!!"
-        });
-        return;
-    }
 
     const Time = {
-        UserID: req.body.UserID,
+        // UserID: req.body.UserID,
         MeetID: req.body.MeetID,
         title: req.body.title,
         start: req.body.start,

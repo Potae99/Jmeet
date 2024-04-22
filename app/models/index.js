@@ -23,12 +23,29 @@ db.sequelize = sequelize;
 db.User = require("./User.model.js")(sequelize, Sequelize);
 db.UserTimemeet = require("./Timemeet.model.js")(sequelize, Sequelize);
 db.role = require("./role.model.js")(sequelize, Sequelize);
+db.UserMeet = require("./UserMeet.model")(sequelize, Sequelize);
 
-//////////////////////////////////////
-db.User.hasMany(db.UserTimemeet, {
+
+
+////////////////////////////////////// User and Meet Relation //////////////////////////
+db.User.belongsToMany(db.UserTimemeet, {
+  through: 'UserMeets',
   foreignKey: 'UserID',
-  as: 'MeetByUserID'
+  otherKey: 'MeetID'
 });
+db.UserTimemeet.belongsToMany(db.User, {
+  through: 'UserMeets',
+  foreignKey: 'MeetID',
+  otherKey: 'UserID'
+});
+
+
+//----------------------------------------------
+
+
+//-------------------------------------------------- User and Meet table have relation -------------------
+
+////////////////////////////////////// User and roles Relation //////////////////////////
 //---------------------------------------
 db.role.belongsToMany(db.User, {
   through: "user_roles"
@@ -38,6 +55,7 @@ db.User.belongsToMany(db.role, {
 });
 
 //--------------------------------------
+/////////////////////////////////////////////////////////////////////////////////////////////////-
 db.ROLES = ["user", "admin"];
 
 module.exports = db;

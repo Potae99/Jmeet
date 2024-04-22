@@ -37,6 +37,10 @@ require("./app/routes/Timemeet.routes")(app);
 require("./app/routes/FindMeetByUser.routes")(app);
 require('./app/routes/auth.routes')(app);
 require('./app/routes/User.routes')(app);
+require("./app/routes/Usermeet.routes")(app);
+
+//----------------------
+// require("./app/routes/usermeet.routes")(app);
 // set port, listen for requests
 const PORT = 8080;
 app.listen(PORT, () => {

@@ -1,12 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
     const UserTimemeet = sequelize.define("UserTimemeet", {
-        UserID: {
-            type: Sequelize.INTEGER,
-            references: {
-                model: 'Users',
-                key: 'UserID'
-            }
-        },
+        // UserID: {
+        //     type: Sequelize.INTEGER,
+        //     references: {
+        //         model: 'Users',
+        //         key: 'UserID'
+        //     }
+        // },
         MeetID: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -23,9 +23,6 @@ module.exports = (sequelize, Sequelize) => {
         }
 
     });
-    UserTimemeet.belongsTo(sequelize.models.User, {
-        foreignKey: 'UserID',
-        as: 'MeetByUserID'
-    });
+
     return UserTimemeet;
 };

@@ -1,5 +1,6 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
+const Meetcontroller = require("../controllers/Timemeet.controller")
 
 module.exports = function (app) {
     app.use(function (req, res, next) {
@@ -23,6 +24,12 @@ module.exports = function (app) {
         [authJwt.verifyToken, authJwt.isAdmin],
         controller.adminBoard
     );
+
+    app.post(
+        "/api/admin/createmeet",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        Meetcontroller.createTimemeet
+    );    
 };
 ///////////////////////-------------------------------
 // module.exports = app => {
