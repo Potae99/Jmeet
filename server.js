@@ -38,6 +38,7 @@ require("./app/routes/FindMeetByUser.routes")(app);
 require('./app/routes/auth.routes')(app);
 require('./app/routes/User.routes')(app);
 require("./app/routes/Usermeet.routes")(app);
+require("./app/routes/Sreach.routes")(app);
 
 //----------------------
 // require("./app/routes/usermeet.routes")(app);

@@ -18,7 +18,7 @@ exports.createTimemeet = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while create the User.T_T"
+                message: err.message || "Some error occurred while create the Meet .T_T"
             });
         });
 };
@@ -34,7 +34,55 @@ exports.findAll = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving students."
+                    err.message || "Some error occurred while retrieving meets."
+            });
+        });
+};
+//-------------------------------------------------------- Edit meet ----------------------------------------------------------------
+exports.editMeet = (req, res) => {
+    const MeetID = req.params.MeetID;
+    Timemeet.update(req.body, {
+        where: { MeetID: MeetID }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Meet was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update Meet with MeetID=${MeetID}. Maybe User was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating Meet with MeetID=" + MeetID
+            });
+        });
+};
+
+///----------------------------------------------- Delete Meet --------------------------///
+exports.deleteMeet = (req, res) => {
+    const MeetID = req.params.MeetID;
+
+    Timemeet.destroy({
+        where: { MeetID: MeetID }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Meet was deleted successfully!"
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete Meet with MeetID =${MeetID}. Maybe Meet was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete Meet with MeetID =" + MeetID
             });
         });
 };

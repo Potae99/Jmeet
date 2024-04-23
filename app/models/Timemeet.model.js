@@ -1,12 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const UserTimemeet = sequelize.define("UserTimemeet", {
-        // UserID: {
-        //     type: Sequelize.INTEGER,
-        //     references: {
-        //         model: 'Users',
-        //         key: 'UserID'
-        //     }
-        // },
+    const UserTimemeet = sequelize.define("meet", {
         MeetID: {
             type: Sequelize.INTEGER,
             primaryKey: true,

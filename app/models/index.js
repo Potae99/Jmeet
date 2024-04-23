@@ -29,18 +29,25 @@ db.UserMeet = require("./UserMeet.model")(sequelize, Sequelize);
 
 ////////////////////////////////////// User and Meet Relation //////////////////////////
 db.User.belongsToMany(db.UserTimemeet, {
-  through: 'UserMeets',
+  through: 'usermeeting',
   foreignKey: 'UserID',
   otherKey: 'MeetID'
 });
 db.UserTimemeet.belongsToMany(db.User, {
-  through: 'UserMeets',
+  through: 'usermeeting',
   foreignKey: 'MeetID',
   otherKey: 'UserID'
 });
+db.UserMeet.belongsTo(db.UserTimemeet, {
+  as: 'meet',
+  foreignKey: 'MeetID'
+});
 
 
-//----------------------------------------------
+
+
+
+
 
 
 //-------------------------------------------------- User and Meet table have relation -------------------

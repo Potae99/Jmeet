@@ -109,18 +109,3 @@ exports.signin = (req, res) => {
 
 
 //----------------------------------------------------- Find all User ------------------------------------------------------------
-// exports.findAll = (req, res) => {
-//     const UserID = req.query.UserID;
-//     var condition = UserID ? { UserID: { [Op.iLike]: `%${UserID}%` } } : null;
-
-//     User.findAll({ where: condition })
-//         .then(data => {
-//             res.send(data);
-//         })
-//         .catch(err => {
-//             res.status(500).send({
-//                 message:
-//                     err.message || "Some error occurred while retrieving students."
-//             });
-//         });
-// };

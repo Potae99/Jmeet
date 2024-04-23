@@ -1,6 +1,8 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
 const Meetcontroller = require("../controllers/Timemeet.controller")
+const Search = require("../controllers/Search.controller");
+
 
 module.exports = function (app) {
     app.use(function (req, res, next) {
@@ -25,25 +27,30 @@ module.exports = function (app) {
         controller.adminBoard
     );
 
+    ///////////////-- admin create meeting room --//////////////////
     app.post(
         "/api/admin/createmeet",
         [authJwt.verifyToken, authJwt.isAdmin],
         Meetcontroller.createTimemeet
-    );    
+    );
+    ////////////////---- admin get all user -- ///////////////////
+
+    app.get("/api/Jmeet/admin/findalluser",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        Meetcontroller.findAll
+    );
+    ////////////////---- admin delete user -- ///////////////////
+    app.delete(
+        "/api/admin/delete/user/:UserID",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        controller.deleteUser
+    );
+    ////////////////---- admin update user ------//////////////////
+    app.put(
+        "/api/admin/update/user/:UserID",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        controller.editUser
+    );
+
+
 };
-///////////////////////-------------------------------
-// module.exports = app => {
-//     const User = require("../controllers/auth.controller");
-
-//     var router = require("express").Router();
-
-//     //---------------------- Create a new User -------------------------
-
-//     router.post("/User", User.createUser);
-//     //--------------------- Get all User ------------------------------
-//     router.get("/User", User.findAll);
-
-//     //------------------------------------------------------------------
-//     app.use('/api/Jmeet', router);
-
-// };

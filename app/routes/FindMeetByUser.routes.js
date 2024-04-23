@@ -1,5 +1,5 @@
 module.exports = app => {
-    const FindMeetByUserID = require("../controllers/SearchMeet.controller");
+    const FindMeetByUserID = require("../controllers/Search.controller");
 
     var router = require("express").Router();
 
