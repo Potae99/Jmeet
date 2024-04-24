@@ -1,7 +1,5 @@
 const db = require("../models");
-const Meet = db.UserTimemeet;
 const User = db.User;
-const Op = db.Sequelize.Op;
 const bcrypt = require("bcryptjs");
 //////////////////--------------------------------------
 exports.allAccess = (req, res) => {
