@@ -14,7 +14,6 @@ exports.findMeetByUserID = (req, res) => {
         include: [{
             model: Meet,
             as: 'meet',
-           
         }]
     })
     .then(data => {

@@ -1,12 +1,15 @@
 const express = require("express");
 const cors = require("cors");
 
+var bcrypt = require("bcryptjs");
+
 const app = express();
 
 // app.use();
 
 const db = require("./app/models");
 const Role = db.role;
+const User = db.User
 db.sequelize.sync()
   .then(() => {
     console.log("Synced db.");
@@ -33,12 +36,11 @@ app.get("/", (req, res) => {
 });
 
 // set port, listen for requests
-require("./app/routes/Timemeet.routes")(app);
-require("./app/routes/FindMeetByUser.routes")(app);
+
 require('./app/routes/auth.routes')(app);
 require('./app/routes/User.routes')(app);
-require("./app/routes/Usermeet.routes")(app);
-require("./app/routes/Sreach.routes")(app);
+
+
 
 //----------------------
 // require("./app/routes/usermeet.routes")(app);
@@ -67,6 +69,28 @@ function initial() {
     id: 2,
     name: "admin"
   });
+
+  pass = "admin1234"
+  Password = pass
+  User.create({
+    UserID: 1234,
+    Password: bcrypt.hashSync(Password, 8),
+    Firstname: "Admin",
+    Lastname: "Adminjaja",
+    Callname: "admin"
+}).then(user => {
+    // ค้นหา role ที่มี name เป็น 'admin'
+    Role.findOne({
+        where: { name: 'admin' }
+    }).then(role => {
+        // ใช้ setRoles เพื่อกำหนด role ให้กับผู้ใช้
+        user.setRoles([role.id]).then(() => {
+            console.log('Role set successfully.');
+        });
+    });
+}).catch(err => {
+    console.log('Failed to create user: ', err.message);
+});
 }
 
 //-----------------------------------

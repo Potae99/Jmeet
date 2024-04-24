@@ -1,7 +1,9 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
 const Meetcontroller = require("../controllers/Timemeet.controller")
-const Search = require("../controllers/Search.controller");
+const Meet = require("../controllers/Timemeet.controller");
+const Findmeetbyuser = require("../controllers/Search.controller");
+const Usermeet = require("../controllers/Usermeet.controller");
 
 
 module.exports = function (app) {
@@ -27,30 +29,95 @@ module.exports = function (app) {
         controller.adminBoard
     );
 
-    ///////////////-- admin create meeting room --//////////////////
+
+    ////////////////////////////////-----------------  ADMIN --------------------------------//////////////////////////////
+
+    ///////////////-- admin create meeting  --//////////////////** */
     app.post(
         "/api/admin/createmeet",
         [authJwt.verifyToken, authJwt.isAdmin],
         Meetcontroller.createTimemeet
     );
-    ////////////////---- admin get all user -- ///////////////////
+    ////////////////---- admin get all meet -- ///////////////////** */
 
-    app.get("/api/Jmeet/admin/findalluser",
+    app.get("/api/admin/get/findallmeet",
         [authJwt.verifyToken, authJwt.isAdmin],
         Meetcontroller.findAll
     );
-    ////////////////---- admin delete user -- ///////////////////
+    ////////// -----admin get all user -------///////////////////////
+    app.get("/api/admin/get/alluser",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        Findmeetbyuser.findAll
+    );
+    ////////////////---- admin delete user -- ///////////////////** */
     app.delete(
         "/api/admin/delete/user/:UserID",
         [authJwt.verifyToken, authJwt.isAdmin],
         controller.deleteUser
     );
-    ////////////////---- admin update user ------//////////////////
+    ////////////////---- admin update user ------//////////////////** */
     app.put(
         "/api/admin/update/user/:UserID",
         [authJwt.verifyToken, authJwt.isAdmin],
         controller.editUser
     );
+    ////////////////---- admin delete meet ------/////////////////** */
+
+    app.delete("/api/admin/delete/meet/:MeetID",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        Meet.deleteMeet
+
+    );
+
+    //////////////----- update meet -----/////////////////////** */
+
+    app.put("/api/admin/update/meet/:MeetID",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        Meet.editMeet
+    );
+
+    ///////------------- craete usermeet -----------------//////** */
+    app.post("/api/admin/post/usermeet",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        Usermeet.createUsermeet
+    )
+
+
+    ////--------------------------------------------------------- User ------------------------------------------------------//////
+
+    //////---------------------------- user get own meet ------------------------/////** */
+    app.get(
+        "/api/user/find/meetbyuser/:UserID",
+        [authJwt.verifyToken],
+        Findmeetbyuser.findMeetByUserID
+    );
+    /////----------------------------- user delete own meet ---------------------/////** */
+
+    app.delete(
+        "/api/user/delete/meet/:MeetID",
+        [authJwt.verifyToken],
+        Meet.deleteMeet
+    );
+
+    //////-------------------------- user create meet -------------------------//////** */
+
+    app.post("/api/user/post/meet",
+        [authJwt.verifyToken],
+        Meet.createTimemeet
+    );
+
+    ////---------------------------- user get all meet -------------------------////** */
+    app.get("/api/user/get/allmeet",
+        [authJwt.verifyToken],
+        Meet.findAll
+    );
+
+
+
+
+
+
+
 
 
 };
