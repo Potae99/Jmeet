@@ -1,9 +1,9 @@
-const { authJwt } = require("../../app/middleware");
-const controller = require("../../app/controllers/user.controller");
-const Meetcontroller = require("../../app/controllers/Timemeet.controller")
-const Meet = require("../../app/controllers/Timemeet.controller");
-const Findmeetbyuser = require("../../app/controllers/Search.controller");
-const Usermeet = require("../../app/controllers/Usermeet.controller");
+const { authJwt } = require("../middleware");
+const controller = require("../controllers/user.controller");
+const Meetcontroller = require("../controllers/Timemeet.controller")
+const Meet = require("../controllers/Timemeet.controller");
+const Findmeetbyuser = require("../controllers/Search.controller");
+const Usermeet = require("../controllers/Usermeet.controller");
 
 
 module.exports = function (app) {
