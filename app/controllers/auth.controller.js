@@ -11,7 +11,7 @@ var bcrypt = require("bcryptjs");
 
 //-----------------------------------------------------------------------------------------------------------------------------
 exports.signup = (req, res) => {
-
+  console.log('signup',req.body);
     if (!req.body.UserID || !req.body.Password || !req.body.Firstname || !req.body.Lastname || !req.body.Callname) {
         res.status(400).send({
             message: "Content can not be empty!!!!"
@@ -55,6 +55,7 @@ exports.signup = (req, res) => {
 
 //-------------------------------------------------- Signin ---------------------------------------------------------------------
 exports.signin = (req, res) => {
+  console.log('signin',req.body);
     User.findOne({
       where: {
         UserID: req.body.UserID,

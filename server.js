@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 var bcrypt = require("bcryptjs");
+var bodyParser = require('body-parser')
 
 const app = express();
 
@@ -26,6 +27,10 @@ app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
 app.use(express.json());
+
+
+//-----body  parser----//
+app.use(bodyParser.json())
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));

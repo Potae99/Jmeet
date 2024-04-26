@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # Node.js service
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ENV: development
+      PORT: 8080
+      DB_HOST: localhost
+      DB_USER: postgres
+      DB_PASSWORD: 123456
+      DB_NAME: Jmeet
+
+  # PostgreSQL service
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: Jmeet
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456

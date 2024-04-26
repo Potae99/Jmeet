@@ -1,5 +1,5 @@
 module.exports = {
-    HOST: "localhost",
+    HOST: "jmeet-postgres-1",
     USER: "postgres",
     PASSWORD: "123456",
     DB: "Jmeet",
