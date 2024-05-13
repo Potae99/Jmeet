@@ -8,6 +8,9 @@ module.exports = (sequelize, Sequelize) => {
         title: {
             type: Sequelize.STRING
         },
+        description: {
+            type: Sequelize.STRING
+        },
         start: {
             type: Sequelize.DATE
         },

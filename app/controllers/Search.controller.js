@@ -34,7 +34,8 @@ exports.findAll = (req, res) => {
     const UserID = req.query.UserID;
     var condition = UserID ? { UserID: { [Op.iLike]: `%${UserID}%` } } : null;
 
-    User.findAll({ where: condition })
+    User.findAll({ where: condition,
+        order: [['createdAt', 'DESC']] })
         .then(data => {
             res.send(data);
         })

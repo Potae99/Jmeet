@@ -8,6 +8,7 @@ exports.createTimemeet = (req, res) => {
         // UserID: req.body.UserID,
         MeetID: req.body.MeetID,
         title: req.body.title,
+        description:req.body.description,
         start: req.body.start,
         end: req.body.end
     };

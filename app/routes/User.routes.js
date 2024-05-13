@@ -82,6 +82,12 @@ module.exports = function (app) {
         Usermeet.createUsermeet
     )
 
+    ////------------- get user by UserID ------------------****/
+    app.get("/api/admin/get/someoneuser/:UserID",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        controller.findUserByUserID
+    )
+
 
     ////--------------------------------------------------------- User ------------------------------------------------------//////
 
