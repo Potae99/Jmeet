@@ -23,14 +23,40 @@ exports.findMeetByUserID = (req, res) => {
             }
         ]
     })
-    .then(data => {
-        res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving meets."
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving meets."
+            });
         });
-    });
+};
+
+exports.findMeetByRoom = (req, res) => {
+    const RoomID = req.params.RoomID;
+
+    Meet.findAll({
+        where: { RoomID: RoomID },
+        include: [
+            {
+                model: User,
+                attributes: ['UserID', 'Firstname', 'Lastname', 'Callname'] // Adjust attributes as needed
+            },
+            // {
+            //     model: Meet,
+            //     attributes: ['MeetID', 'title',"description","start","end","UserID"] // Adjust attributes as needed
+            // }
+        ]
+    })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving meets."
+            });
+        });
 };
 
 
@@ -40,8 +66,10 @@ exports.findAll = (req, res) => {
     const UserID = req.query.UserID;
     var condition = UserID ? { UserID: { [Op.iLike]: `%${UserID}%` } } : null;
 
-    User.findAll({ where: condition,
-        order: [['createdAt', 'DESC']] })
+    User.findAll({
+        where: condition,
+        order: [['createdAt', 'DESC']]
+    })
         .then(data => {
             res.send(data);
         })

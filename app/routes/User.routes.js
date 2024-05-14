@@ -89,6 +89,13 @@ module.exports = function (app) {
 
     );
 
+    //------------------- admin get data by MeetID ----------------*////
+    app.get("/api/admin/post/room/:RoomID",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    Findmeetbyuser.findMeetByRoom
+
+    )
+
 
 
     ////--------------------------------------------------------- User ------------------------------------------------------//////
