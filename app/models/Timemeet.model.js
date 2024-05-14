@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const User = require('./User.model')(sequelize, Sequelize); // Import and initialize User model
-    const Room = require('./Room.model')(sequelize, Sequelize); // Import and initialize Room model
+    const Room = require('./room.model')(sequelize, Sequelize); // Import and initialize Room model
 
     const UserTimemeet = sequelize.define("UserTimemeet", {
         MeetID: {
