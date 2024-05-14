@@ -3,7 +3,8 @@ const controller = require("../controllers/user.controller");
 const Meetcontroller = require("../controllers/Timemeet.controller")
 const Meet = require("../controllers/Timemeet.controller");
 const Findmeetbyuser = require("../controllers/Search.controller");
-const Usermeet = require("../controllers/Usermeet.controller");
+const Room = require("../controllers/Room.controller")
+
 
 
 module.exports = function (app) {
@@ -76,17 +77,18 @@ module.exports = function (app) {
         Meet.editMeet
     );
 
-    ///////------------- craete usermeet -----------------//////** */
-    app.post("/api/admin/post/usermeet",
-        [authJwt.verifyToken, authJwt.isAdmin],
-        Usermeet.createUsermeet
-    )
-
     ////------------- get user by UserID ------------------****/
     app.get("/api/admin/get/someoneuser/:UserID",
         [authJwt.verifyToken, authJwt.isAdmin],
         controller.findUserByUserID
     )
+    ///------------------- admin create room ----------------------*///
+    app.post("/api/admin/post/room",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        Room.createRoom
+
+    );
+
 
 
     ////--------------------------------------------------------- User ------------------------------------------------------//////

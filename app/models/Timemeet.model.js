@@ -1,5 +1,8 @@
 module.exports = (sequelize, Sequelize) => {
-    const UserTimemeet = sequelize.define("meet", {
+    const User = require('./User.model')(sequelize, Sequelize); // Import and initialize User model
+    const Room = require('./Room.model')(sequelize, Sequelize); // Import and initialize Room model
+
+    const UserTimemeet = sequelize.define("UserTimemeet", {
         MeetID: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -16,9 +19,25 @@ module.exports = (sequelize, Sequelize) => {
         },
         end: {
             type: Sequelize.DATE
+        },
+        UserID: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: User,
+                key: 'UserID'
+            }
+        },
+        RoomID: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: Room,
+                key: 'RoomID'
+            }
         }
-
     });
+
+    UserTimemeet.belongsTo(User, { foreignKey: 'UserID', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+    UserTimemeet.belongsTo(Room, { foreignKey: 'RoomID', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 
     return UserTimemeet;
 };

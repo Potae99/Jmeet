@@ -1,8 +1,17 @@
 const db = require("../models");
-const Timemeet = db.UserTimemeet;
+const Timemeet = db.Meet;
 const Op = db.Sequelize.Op;
 
 exports.createTimemeet = (req, res) => {
+
+    const startDate = new Date(req.body.start);
+    const endDate = new Date(req.body.end);
+
+    if (startDate > endDate) {
+        return res.status(400).send({
+            message: "Start date cannot be after end date."
+        });
+    }
 
     const Time = {
         // UserID: req.body.UserID,
@@ -10,7 +19,9 @@ exports.createTimemeet = (req, res) => {
         title: req.body.title,
         description:req.body.description,
         start: req.body.start,
-        end: req.body.end
+        end: req.body.end,
+        UserID: req.body.UserID,
+        RoomID: req.body.RoomID
     };
 
     Timemeet.create(Time)

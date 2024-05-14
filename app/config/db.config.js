@@ -1,6 +1,6 @@
 module.exports = {
-  // HOST:"localhost",
-    HOST: "jmeet-postgres-1",
+  HOST:"localhost", //for mycom
+    // HOST: "jmeet-postgres-1",// for docker
     USER: "postgres",
     PASSWORD: "123456",
     DB: "Jmeet",

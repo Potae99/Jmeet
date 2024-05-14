@@ -1,20 +1,27 @@
 const db = require("../models");
-const Meet = db.UserTimemeet;
+const Meet = db.Meet;
 const User = db.User;
+const Room = db.Room;
 const Op = db.Sequelize.Op;
-const UserMeet = db.UserMeet;
+
 
 
 
 exports.findMeetByUserID = (req, res) => {
     const UserID = req.params.UserID;
 
-    UserMeet.findAll({
+    Meet.findAll({
         where: { UserID: UserID },
-        include: [{
-            model: Meet,
-            as: 'meet',
-        }]
+        include: [
+            {
+                model: User,
+                attributes: ['UserID', 'Firstname', 'Lastname', 'Callname'] // Adjust attributes as needed
+            },
+            {
+                model: Room,
+                attributes: ['RoomID', 'Roomname'] // Adjust attributes as needed
+            }
+        ]
     })
     .then(data => {
         res.send(data);
@@ -25,7 +32,6 @@ exports.findMeetByUserID = (req, res) => {
         });
     });
 };
-
 
 
 

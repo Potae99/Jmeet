@@ -1,16 +1,15 @@
 const db = require("../models");
-const Usermeet = db.UserMeet;
-const Op = db.Sequelize.Op;
+const Room = db.Room;
 
-exports.createUsermeet = (req, res) => {
 
-    const Meet = {
-        UserID: req.body.UserID,
-        MeetID: req.body.MeetID
+exports.createRoom = (req, res) => {
 
+    const room = {
+        RoomID: req.body.RoomID,
+        Roomname: req.body.Roomname
     };
 
-    Usermeet.create(Meet)
+    Room.create(room)
         .then(data => {
             res.send(data);
         })
@@ -20,5 +19,3 @@ exports.createUsermeet = (req, res) => {
             });
         });
 };
-
-

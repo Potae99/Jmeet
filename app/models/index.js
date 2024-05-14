@@ -22,27 +22,69 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.User = require("./User.model.js")(sequelize, Sequelize);
-db.UserTimemeet = require("./Timemeet.model.js")(sequelize, Sequelize);
+db.Meet = require("./Timemeet.model.js")(sequelize, Sequelize);
 db.role = require("./role.model.js")(sequelize, Sequelize);
-db.UserMeet = require("./UserMeet.model")(sequelize, Sequelize);
+db.Room = require("./room.model.js")(sequelize, Sequelize);
 
 
 
 ////////////////////////////////////// User and Meet Relation //////////////////////////
-db.User.belongsToMany(db.UserTimemeet, {
-  through: 'usermeeting',
-  foreignKey: 'UserID',
-  otherKey: 'MeetID'
-});
-db.UserTimemeet.belongsToMany(db.User, {
-  through: 'usermeeting',
-  foreignKey: 'MeetID',
-  otherKey: 'UserID'
-});
-db.UserMeet.belongsTo(db.UserTimemeet, {
-  as: 'meet',
-  foreignKey: 'MeetID'
-});
+// db.User.hasMany(db.Meet, {
+//   foreignKey: 'UserID',
+//   onDelete: 'CASCADE',
+//   onUpdate: 'CASCADE'
+// });
+
+// db.Meet.belongsTo(db.User, {
+//   foreignKey: 'UserID',
+//   onDelete: 'CASCADE',
+//   onUpdate: 'CASCADE'
+// });
+
+// db.Room.hasMany(db.Meet, {
+//   foreignKey: 'RoomID',
+//   onDelete: 'CASCADE',
+//   onUpdate: 'CASCADE'
+// });
+
+// db.Meet.belongsTo(db.Room, {
+//   foreignKey: 'RoomID',
+//   onDelete: 'CASCADE',
+//   onUpdate: 'CASCADE'
+// });
+
+// Define the associations
+//--------------------------------------------------------
+// db.Room.belongsToMany(db.Timemeet, {
+//   through: 'meetingroom',
+//   foreignKey: 'RoomID',
+//   otherKey: 'MeetID'
+// });
+
+// db.Timemeet.belongsToMany(db.Room, {
+//   through: 'meetingroom',
+//   foreignKey: 'MeetID',
+//   otherKey: 'RoomID'
+// });
+
+// db.User.belongsToMany(db.Meetingroom, {
+//   through: 'meetingroom',
+//   foreignKey: 'UserID',
+//   otherKey: 'MeetingroomID'
+// });
+
+// db.Meetingroom.belongsToMany(db.User, {
+//   through: 'meetingroom',
+//   foreignKey: 'MeetingroomID',
+//   otherKey: 'UserID'
+// });
+
+// // Additional associations
+// db.Meetingroom.belongsTo(db.Timemeet, {
+//   as: 'meet',
+//   foreignKey: 'MeetID'
+// });
+
 
 
 
