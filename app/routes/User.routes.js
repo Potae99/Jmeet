@@ -33,12 +33,7 @@ module.exports = function (app) {
 
     ////////////////////////////////-----------------  ADMIN --------------------------------//////////////////////////////
 
-    ///////////////-- admin create meeting  --//////////////////** */
-    app.post(
-        "/api/admin/createmeet",
-        [authJwt.verifyToken, authJwt.isAdmin],
-        Meetcontroller.createTimemeet
-    );
+
     ////////////////---- admin get all meet -- ///////////////////** */
 
     app.get("/api/admin/get/findallmeet",
@@ -88,11 +83,16 @@ module.exports = function (app) {
         Room.createRoom
 
     );
+    ////--------------------- admin get all room --------------------*///
+    app.get("/api/admin/get/allroom",
+        [authJwt.verifyToken],
+        Room.findAllRoom
+    )
 
     //------------------- admin get data by MeetID ----------------*////
     app.get("/api/admin/post/room/:RoomID",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    Findmeetbyuser.findMeetByRoom
+        [authJwt.verifyToken, authJwt.isAdmin],
+        Findmeetbyuser.findMeetByRoom
 
     )
 
@@ -126,13 +126,16 @@ module.exports = function (app) {
         [authJwt.verifyToken],
         Meet.findAll
     );
-
-
-
-
-
-
-
-
+    ////---------------------------- user get all ----------------------------------///
+    app.get("/api/user/get/findallmeet",
+        [authJwt.verifyToken],
+        Meetcontroller.findAll
+    );
+    ////---------------------------- user create meeting  ------------------d///** */
+    app.post(
+        "/api/user/createmeet",
+        [authJwt.verifyToken],
+        Meetcontroller.createTimemeet
+    );
 
 };

@@ -11,6 +11,7 @@ const app = express();
 const db = require("./app/models");
 const Role = db.role;
 const User = db.User
+const Room = db.Room
 db.sequelize.sync()
   .then(() => {
     console.log("Synced db.");
@@ -65,6 +66,15 @@ db.sequelize.sync({force: true}).then(() => {
 ////--------------------------------------------
 
 function initial() {
+  Room.create({
+    RoomID:"1",
+    Roomname:"TOMORROW"
+
+  });
+  Room.create({
+    RoomID:"2",
+    Roomname:"FUTURE"
+  });
   Role.create({
     id: 1,
     name: "user"
