@@ -90,7 +90,7 @@ module.exports = function (app) {
     )
 
     //------------------- admin get data by MeetID ----------------*////
-    app.get("/api/admin/post/room/:RoomID",
+    app.get("/api/admin/get/room/:RoomID",
         [authJwt.verifyToken, authJwt.isAdmin],
         Findmeetbyuser.findMeetByRoom
 
@@ -137,5 +137,11 @@ module.exports = function (app) {
         [authJwt.verifyToken],
         Meetcontroller.createTimemeet
     );
+    ///----------------------------- user get meet by room --------------------/////
+    app.get("/api/user/get/room/:RoomID",
+    [authJwt.verifyToken],
+    Findmeetbyuser.findMeetByRoom
+
+)
 
 };
